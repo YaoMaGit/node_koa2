@@ -9,6 +9,7 @@ let user = require('./appApi/user.js');
 let home = require('./appApi/home.js');
 let sms= require('./appApi/sms.js')
 let readfile = require('./appApi/readfile.js');
+let goodslist = require('./appApi/goodslist.js');
 
 (async () => {
     await connect()
@@ -21,7 +22,9 @@ let router = new Router();
 router.use('/user', user.routes())
 router.use('/home', home.routes())
 router.use('/sms', sms.routes())
-router.use('/readfile', readfile.routes())
+router.use('/read', readfile.routes())
+router.use('/goods',goodslist.routes())
+
 
 app.use(bodyParser())
 app.use(cors())

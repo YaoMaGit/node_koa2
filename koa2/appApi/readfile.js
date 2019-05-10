@@ -4,7 +4,8 @@ const Router = require('koa-router');
 let router = new Router();
 const fs = require('fs'); // 引入fs模块
 
-router.post('/readfile', (ctx, next) => {
+router.get('/readfile', async (ctx, next) => {
+    console.log("xxx")
     fs.readFile('./goods.json', 'utf-8',(err, data) =>{
         if (!err) {
             const i = 0

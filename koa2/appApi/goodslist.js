@@ -3,30 +3,20 @@ const Router = require('koa-router');
 
 let router = new Router();
 
-router.get('/goodslist', (ctx, next) => {
-
-    let page = ctx.request.body.params.page
+router.get('/goodslist', async(ctx, next) => {
+    let page = ctx.query.page
     const Good = mongoose.model('Good')
-    await User.findOne({ page: page }).exec().then(async (result) => {
+    await Good.find().skip((page==1?page=0:page)*10).limit(10).exec().then(async (result) => {
         console.log(result)
         if (result) {
-            let newUser = new Good()
-            await newUser.comparePassword(password,result.password)
-            .then((isMatch)=>{
-                ctx.body = {
-                    code: 200,
-                    massage: isMatch
-                }
-            }).catch((error)=>{
-                ctx.body = {
-                    code: 200,
-                    massage: error
-                }
-            })
-        } else {
             ctx.body = {
                 code: 200,
-                massage: '用户不存在！'
+                data: result
+            }
+        } else {
+            ctx.body = {
+                code: 500,
+                massage: '无数据'
             }
         }
     }).catch((error) => {

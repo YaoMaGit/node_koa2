@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-const db = 'mongodb://localhost/shop'
+const db = 'mongodb://localhost:27017/shop'
 const glob = require('glob')
 const { resolve } = require('path')
 
@@ -8,7 +8,7 @@ exports.initSchemas = () => {
 }
 exports.connect = () => {
 
-    mongoose.connect(db)
+    mongoose.connect(db,{useNewUrlParser:true,useCreateIndex: true})
     let maxConnectTimes = 0
     // 监听
     return new Promise((resolve, reject) => {
