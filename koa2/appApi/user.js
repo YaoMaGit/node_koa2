@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 let router = new Router();
 
 
-router.get('/', function (ctx, next) {
+router.get('/', async (ctx, next)=> {
     ctx.body = "user路由";
 })
 

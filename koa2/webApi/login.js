@@ -3,8 +3,8 @@ const Router = require('koa-router');
 const router = new Router();
 
 
-router.get('/', async (ctx, next)=> {
-    ctx.body = "我是首页";
+router.post('/login', async (ctx, next)=> {
+    ctx.body = "登陆";
 })
 router.get('/register', async(ctx, next) => {
         ctx.body = "注册用户"
