@@ -36,7 +36,7 @@ router.get('/readfile', async (ctx, next) => {
 
                 newGoods.save().then((res) => {
                     console.log("数据导入成功！")
-
+                    i++
                     if (newData.length == i) {
                         ctx.body = {
                             code: 200,
