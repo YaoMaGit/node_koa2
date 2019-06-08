@@ -7,14 +7,20 @@ const cors = require('koa-cors');
 const Router = require("koa-router");
 let user = require('./appApi/user.js');
 let home = require('./appApi/home.js');
-let sms= require('./appApi/sms.js')
+let sms = require('./appApi/sms.js')
 let readfile = require('./appApi/readfile.js');
 let goodslist = require('./appApi/goodslist.js');
 
-(async () => {
-    await connect()
-    initSchemas()
-})()
+const path = require('path')
+const static = require('koa-static');
+app.use(static(
+    path.join(__dirname, './upload')
+));
+
+    (async () => {
+        await connect()
+        initSchemas()
+    })()
 
 
 //装载路由
@@ -23,7 +29,7 @@ router.use('/user', user.routes())
 router.use('/home', home.routes())
 router.use('/sms', sms.routes())
 router.use('/read', readfile.routes())
-router.use('/goods',goodslist.routes())
+router.use('/goods', goodslist.routes())
 
 
 app.use(bodyParser())
