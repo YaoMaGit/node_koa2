@@ -25,9 +25,7 @@ router.get('/goodslist', async(ctx, next) => {
 router.post('/addgoods',async(ctx, next)=>{
     const Good = mongoose.model('Good')
     console.log(ctx)
-    // if(ctx.request.query.introduce==""){
-    //     console.log("xx")
-    // }
+
     let Goods = new Good(ctx.request.query)
 
     await Goods.save().then((result) => {

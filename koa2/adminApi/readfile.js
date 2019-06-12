@@ -4,6 +4,7 @@ const multer = require('koa-multer');
 const path = require('path');
 const fs = require('fs'); // 引入fs模块
 
+
 let router = new Router();
 
 let storage = multer.diskStorage({
@@ -20,9 +21,10 @@ router.post('/upload', upload.single('file'), async ctx => {
     if (ctx.req.file) {
         ctx.body = {
             code: 200,
+            massage: '上传成功',
             data: {
-                image:'http://' + ctx.request.host +"/"+ ctx.req.file.filename,
-                file:ctx.req.file,
+                image: 'http://' + ctx.request.host + "/" + ctx.req.file.filename,
+                file: ctx.req.file,
             }
         };
     } else {
