@@ -7,8 +7,8 @@ const userSchema = new Schema({
     UserId: {
         type: ObjectId
     },
-    telephone:{
-        unique:true, type:Number
+    username:{
+        unique:true, type:String
     },
     userName: {
         type: String
@@ -20,7 +20,6 @@ const userSchema = new Schema({
     createAt: {
         type: Date, default: Date.now()
     },
-    
     lastLoginAt: {
         type: Date, default: Date.now()
     }

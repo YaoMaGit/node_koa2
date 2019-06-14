@@ -10,7 +10,7 @@ const ArticleType = new Schema({
         type: String
     }, 
     number:{//量
-        type: Number, default: 0
+        type: Number, default: 0,
     }, 
     image: {//封面
         type: String
