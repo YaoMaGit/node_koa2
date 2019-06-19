@@ -1,6 +1,7 @@
 const Router = require('koa-router');
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
+const JwtUtil = require('../common/jwt');
 
 let router = new Router();
 
@@ -20,29 +21,33 @@ router.post('/login', async (ctx, next) => {
             await newUser.comparePassword(password, result.password)
                 .then(async (isMatch) => {
 
-                    // let secretOrPrivateKey="suiyi" // 这是加密的key（密钥） 
-                    // let token = jwt.sign(ctx.request.body, secretOrPrivateKey, {
-                    //     // expiresIn: 60*60*1  // 1小时过期
-                    // });
-                    // ctx.request.body.token=Date.now()
-                    // let oneUser = new User(ctx.request.body)
-                    // await oneUser.save().then((res) => {
-                    //     console.log("插入成功！！")
-                    ctx.body = {
-                        code: 200,
-                        massage: '登录成功！',
-                        success: isMatch,
-                        data: isMatch,
+
+                    if (isMatch) {
+                        // 登陆成功，添加token验证
+                        let _id = result._id.toString();
+                        console.log(_id)
+                        // 将用户id传入并生成token
+                        let jwt = new JwtUtil(_id);
+                        let token = jwt.generateToken();
+                        // 将 token 返回给客户端
+                        ctx.body = {
+                            code: 200,
+                            massage: '登录成功！',
+                            success: isMatch,
+                            data: {
+                                token: token,
+                                result:result,
+                            },
+                        }
+                    } else {
+                        ctx.body = {
+                            code: 200,
+                            massage: '用户名密码错误！',
+                            success: isMatch,
+                            data: isMatch,
+                        }
                     }
-                    // }, (err) => {
-                    //     console.log("插入失败！！")
-                    //     console.log(err)
-                    //     ctx.body = {
-                    //         code: 500,
-                    //         massage: '登录失败！',
-                    //         data:err
-                    //     }
-                    // })
+
 
 
                 }).catch((error) => {

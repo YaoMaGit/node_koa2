@@ -164,7 +164,6 @@ router.get('/ArticleTypeList', async (ctx, next) => {
     let pageSize = Number(ctx.query.pageSize)
     console.log(ctx.query.pageSize)
     const ArticleTypes = mongoose.model('ArticleType')
-    console.log("ArticleTypes.count()>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
 
     await ArticleTypes.find().skip((page - 1) * pageSize).limit(pageSize).exec().then(async (result) => {
         await ArticleTypes.find().count().then((total) => {

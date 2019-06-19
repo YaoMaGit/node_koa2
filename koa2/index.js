@@ -11,6 +11,7 @@ let sms = require('./adminApi/sms.js')
 let readfile = require('./adminApi/readfile.js');
 let goodslist = require('./adminApi/goodslist.js');
 let articleList = require('./adminApi/articleList.js');
+let JwtUtil = require('./common/jwt.js');
 
 const path = require('path')
 const static = require('koa-static');
@@ -33,10 +34,36 @@ router.use('/read', readfile.routes())
 router.use('/goods', goodslist.routes())
 router.use('/article', articleList.routes())
 
+
+//定义允许直接访问的url
+const allowUrl = ['/user/login', '/user/register']
+app.use(cors())
+//拦截
+app.use(async (ctx,next) => {
+    if (allowUrl.indexOf(ctx.originalUrl) > -1) {
+        await next()
+    } else {
+        let token = ctx.header.authorization;
+        let jwt = new JwtUtil(token);
+        let result = jwt.verifyToken();
+        console.log('登陆拦截>>'+result)
+        if (result == 'err') {
+            return ctx.body = {
+                code: 403,
+                massage: '登录已过期,请重新登录',
+                success: result,
+            }
+        } else {
+             await next()
+        }
+        
+    }
+})
+
 app.use(bodyParser({
     formLimit: '10mb'
 }))
-app.use(cors())
+
 app.use(router.routes())
 app.use(router.allowedMethods());
 app.listen(3000, () => {
