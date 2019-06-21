@@ -11,6 +11,9 @@ let sms = require('./adminApi/sms.js')
 let readfile = require('./adminApi/readfile.js');
 let goodslist = require('./adminApi/goodslist.js');
 let articleList = require('./adminApi/articleList.js');
+let captcha = require('./adminApi/captcha.js');//验证码
+let appcfg = require('./adminApi/appcfg.js');//全局信息
+
 let JwtUtil = require('./common/jwt.js');
 
 const path = require('path')
@@ -34,9 +37,10 @@ router.use('/read', readfile.routes())
 router.use('/goods', goodslist.routes())
 router.use('/article', articleList.routes())
 
+router.use('/api', captcha.routes(),appcfg.routes())
 
 //定义允许直接访问的url
-const allowUrl = ['/user/login', '/user/register']
+const allowUrl = ['/user/login', '/user/register', '/api/getCaptcha','/api/appcfg']
 app.use(cors())
 //拦截
 app.use(async (ctx,next) => {

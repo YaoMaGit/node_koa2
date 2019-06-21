@@ -142,7 +142,6 @@ router.post('/updateArticleList', async (ctx, next) => {
 
 router.get('/delArticleList', async (ctx, next) => {
     const Article = mongoose.model('Article')
-    console.log(ctx.query.articleId)
     await Article.remove({ articleId: ctx.query.articleId }).then(async (result) => {
         ctx.body = {
             code: 200,
@@ -167,7 +166,6 @@ router.get('/ArticleTypeList', async (ctx, next) => {
 
     await ArticleTypes.find().skip((page - 1) * pageSize).limit(pageSize).exec().then(async (result) => {
         await ArticleTypes.find().count().then((total) => {
-            console.log(total)
             ctx.body = {
                 code: 200,
                 massage: '查询成功',
