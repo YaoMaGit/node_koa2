@@ -13,6 +13,7 @@ let goodslist = require('./adminApi/goodslist.js');
 let articleList = require('./adminApi/articleList.js');
 let captcha = require('./adminApi/captcha.js');//验证码
 let appcfg = require('./adminApi/appcfg.js');//全局信息
+let workRecord = require('./adminApi/workRecord.js');
 
 let JwtUtil = require('./common/jwt.js');
 
@@ -36,7 +37,7 @@ router.use('/sms', sms.routes())
 router.use('/read', readfile.routes())
 router.use('/goods', goodslist.routes())
 router.use('/article', articleList.routes())
-
+router.use('/work', workRecord.routes())
 router.use('/api', captcha.routes(),appcfg.routes())
 
 //定义允许直接访问的url
