@@ -7,10 +7,7 @@ const userSchema = new Schema({
     UserId: {
         type: ObjectId
     },
-    username:{
-        unique:true, type:String
-    },
-    userName: {
+    username: {
         type: String
     },
     token:{

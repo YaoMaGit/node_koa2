@@ -41,7 +41,7 @@ router.use('/work', workRecord.routes())
 router.use('/api', captcha.routes(),appcfg.routes())
 
 //定义允许直接访问的url
-const allowUrl = ['/user/login', '/user/register', '/api/getCaptcha','/api/appcfg']
+const allowUrl = ['/user/login', '/user/register', '/api/getCaptcha','/api/appcfg','/read/upload']
 app.use(cors())
 //拦截
 app.use(async (ctx,next) => {

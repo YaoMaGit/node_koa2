@@ -192,7 +192,8 @@ router.get('/ArticleTypeList', async (ctx, next) => {
 router.post('/addArticleType', async (ctx, next) => {
     const ArticleTypes = mongoose.model('ArticleType')
     await ArticleTypes.find().sort({ type: -1 }).skip(0).limit(1).then(async (res) => {
-        let type = res[0].type + 1
+        console.log(res)
+        let type = res.length==0?1:res[0].type + 1
         let props = {
             type: type,
             title: ctx.request.body.title,
